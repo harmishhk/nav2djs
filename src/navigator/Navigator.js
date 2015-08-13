@@ -145,14 +145,14 @@ NAV2D.Navigator = function(options) {
     var poseListener = new ROSLIB.Topic({
       ros: ros,
       name: robot_pose,
-      messageType: 'geometry_msgs/Pose',
+      messageType: 'geometry_msgs/PoseWithCovarianceStamped',
       throttle_rate: 100
     });
     poseListener.subscribe(function(pose) {
-      updateRobotPosition(pose.position,pose.orientation);
+      updateRobotPosition(pose.pose.pose.position,pose.pose.pose.orientation);
     });
   }
-  
+
   if (withOrientation === false){
     // setup a double click listener (no orientation)
     this.rootObject.addEventListener('dblclick', function(event) {
